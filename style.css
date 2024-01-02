@@ -1,5 +1,6 @@
 :root {
   --lightbox-padding: 20px;
+  --occurrence-dot: 8px;
   --occurrence-width: 500px;
   --occurrence-margin: 300px;
   --occurrence-padding: 30px;
@@ -28,14 +29,24 @@ body {
   width: var(--occurrence-width);
 }
 
-.occurrence::before {
+.occurrence::before,
+.occurrence::after {
   content: '';
   position: absolute;
+}
+
+.occurrence::before {
   top: 50%;
   left: calc(-1 * var(--occurrence-margin));
   height: 1px;
   width: var(--occurrence-margin);
   border-bottom: white 1px dashed;
+}
+.occurrence::after {
+  top: calc(50% - var(--occurrence-dot) + 1px);
+  left: calc(-1 * var(--occurrence-margin) - var(--occurrence-dot));
+  border: var(--occurrence-dot) solid white;
+  border-radius: 50%;
 }
 .occurrence h2 {
   margin: 0;
@@ -46,7 +57,7 @@ body {
 }
 .occurrence .descr {
   position: absolute;
-  top: calc(50% + 2px);
+  top: calc(50% + 4px);
   left: var(--descr-offset);
   max-width: var(--descr-max-width);
   font-size: 1.2em;
@@ -67,12 +78,17 @@ body {
   left: calc(-1 * var(--occurrence-2n-margin));
   width: var(--occurrence-2n-margin);
 }
+.occurrence:nth-child(2n)::after {
+  left: calc(-1 * var(--occurrence-2n-margin) - var(--occurrence-dot));
+  border: var(--occurrence-dot) solid white;
+  border-radius: 50%;
+}
 .occurrence:nth-child(2n) h2 {
   left: var(--descr-2n-offset);
 }
 .occurrence:nth-child(2n) .descr {
   left: var(--descr-2n-offset);
-  max-width: var(--descr-max-width-2);
+  max-width: var(--descr-2n-max-width);
 }
 /* END alternate 2n offset */
 
