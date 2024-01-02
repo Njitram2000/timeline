@@ -1,6 +1,6 @@
 :root {
   --lightbox-padding: 20px;
-  --occurrence-width: 300px;
+  --occurrence-width: 500px;
   --occurrence-margin: 300px;
   --occurrence-padding: 30px;
   --descr-margin: 15px;
@@ -17,13 +17,13 @@ body {
 }
 .timeline {
   margin-left: 30px;
-  border-left: #ddd 2px solid;
+  border-left: white 2px solid;
 }
 .occurrence {
   position: relative;
   color: white;
   margin-left: var(--occurrence-margin);
-  margin-bottom: calc(-2 * var(--occurrence-padding));
+  margin-bottom: calc(-3 * var(--occurrence-padding));
   padding-top: var(--occurrence-padding);
   width: var(--occurrence-width);
 }
@@ -35,25 +35,26 @@ body {
   left: calc(-1 * var(--occurrence-margin));
   height: 1px;
   width: var(--occurrence-margin);
-  border-bottom: #ddd 1px dashed;
+  border-bottom: white 1px dashed;
 }
-.occurrence h3 {
+.occurrence h2 {
   margin: 0;
+  font-size: 2em;
   position: absolute;
   top: calc(50% - 1em - 2px);
   left: var(--descr-offset);
 }
 .occurrence .descr {
-  font-size: 12px;
   position: absolute;
   top: calc(50% + 2px);
   left: var(--descr-offset);
   max-width: var(--descr-max-width);
+  font-size: 1.2em;
 }
 
 /* START alternate 2n offset */
 :root {
-  --occurrence-2n-space: 20px;
+  --occurrence-2n-space: 40px;
   --occurrence-2n-margin: calc(var(--occurrence-margin) + var(--occurrence-width) + var(--occurrence-2n-space));
   --descr-2n-offset: calc(-1 * (var(--occurrence-2n-margin) - var(--descr-margin)));
   --descr-2n-max-width: calc(var(--occurrence-2n-margin) - (2 * var(--descr-margin)));
@@ -66,7 +67,7 @@ body {
   left: calc(-1 * var(--occurrence-2n-margin));
   width: var(--occurrence-2n-margin);
 }
-.occurrence:nth-child(2n) h3 {
+.occurrence:nth-child(2n) h2 {
   left: var(--descr-2n-offset);
 }
 .occurrence:nth-child(2n) .descr {
