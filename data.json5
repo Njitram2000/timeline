@@ -1,0 +1,83 @@
+{
+  occurrences: [
+    {
+      date: {
+        year: 2023,
+        month: 2,
+        day: 27
+      },
+      description: "The lorem forest - \
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vel leo nisl. Vivamus viverra eros a ante efficitur, eu blandit ligula cursus.\
+        Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.\
+      ",
+      location: "",
+      images: [
+        {
+          src: "./images/trees.jpg",
+          alt: "A bunch of trees"
+        },
+        {
+          src: "./images/cat.jpg",
+          alt: "Some cat"
+        },
+        {
+          src: "./images/red.jpg",
+          alt: "A red thing"
+        }
+      ]
+    },
+    {
+      date: {
+        year: 2023,
+        month: 5,
+        day: 11
+      },
+      description: "A cat was found",
+      location: "",
+      images: [
+        {
+          src: "./images/cat.jpg",
+          alt: "Some cat"
+        },
+        {
+          src: "./images/trees.jpg",
+          alt: "A bunch of trees"
+        },
+        {
+          src: "./images/red.jpg",
+          alt: "A red thing"
+        }
+      ]
+    },
+    {
+      date: {
+        year: 2022,
+        month: 12,
+        day: 5
+      },
+      description: "Some red thing",
+      location: "",
+      images: [
+        {
+          src: "./images/red.jpg",
+          alt: "A red thing"
+        }
+      ]
+    },
+    {
+      date: {
+        year: 2022,
+        month: 6,
+        day: 19
+      },
+      description: "Underwater things",
+      location: "",
+      images: [
+        {
+          src: "./images/water.jpg",
+          alt: "Underwater"
+        }
+      ]
+    }
+  ]
+}

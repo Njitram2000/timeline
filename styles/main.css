@@ -1,0 +1,198 @@
+:root {
+  --color-sub-text: #999;
+  --lightbox-padding: 20px;
+  --header-margin: 20px;
+  --timeline-margin: 30px;
+  --occurrence-line-offset: 150px;
+  --occurrence-dot: 8px;
+  --occurrence-width: auto;
+  --occurrence-margin: 30px;
+  --occurrence-padding: 30px;
+  --descr-margin: 15px;
+  --descr-offset: calc(-1 * (var(--occurrence-margin) - var(--descr-margin)));
+  --descr-max-width: calc(var(--occurrence-margin) - (2 * var(--descr-margin)));
+}
+
+@media only screen and (min-width: 1200px) {
+  :root {
+    --header-margin: 320px;
+    --timeline-margin: 300px;
+    --occurrence-line-offset: 50%;
+    --occurrence-top: 50%;
+    --occurrence-width: 500px;
+    --occurrence-margin: 300px;
+  }
+}
+
+
+body {
+  position: relative;
+  background-color: #222;
+  margin: 0;
+  padding: 0;
+  color: white;
+}
+
+header {
+  padding-left: var(--header-margin);
+  padding-bottom: 5px;
+  border-bottom: white 2px solid;
+}
+header h1 {
+  margin: 0.1em 0 0.2em;
+}
+header nav {
+  display: flex;
+  align-items: baseline;
+  column-gap: 1em;
+  overflow-x: auto;
+  padding-bottom: 5px;
+}
+header nav .month {
+  cursor: pointer;
+}
+header nav .year {
+  font-size: 2em;
+  font-weight: bold;
+  color: var(--color-sub-text);
+}
+header nav .month {
+  font-size: 1.5em;
+}
+
+.timeline {
+  margin: 0 var(--timeline-margin);
+  border-left: white 2px solid;
+}
+.occurrence {
+  position: relative;
+  margin-left: var(--occurrence-margin);
+  padding-top: var(--occurrence-padding);
+  width: var(--occurrence-width);
+}
+
+.occurrence::before,
+.occurrence::after {
+  content: '';
+  position: absolute;
+}
+
+.occurrence::before {
+  top: var(--occurrence-line-offset);
+  left: calc(-1 * var(--occurrence-margin));
+  height: 1px;
+  width: var(--occurrence-margin);
+  border-bottom: white 1px dashed;
+}
+.occurrence::after {
+  top: calc(var(--occurrence-line-offset) - var(--occurrence-dot) + 1px);
+  left: calc(-1 * var(--occurrence-margin) - var(--occurrence-dot));
+  border: var(--occurrence-dot) solid white;
+  border-radius: 50%;
+}
+.occurrence h2 {
+  margin: 0;
+  font-size: 2em;
+  top: calc(50% - 1em - 2px);
+  left: var(--descr-offset);
+}
+.occurrence .descr {
+  top: calc(50% + 4px);
+  left: var(--descr-offset);
+  max-width: auto;
+  font-size: 1.2em;
+  color: var(--color-sub-text);
+}
+.occurrence .images {
+  margin: 10px 0;
+}
+
+.occurrence .images .image:not(:first-child) {
+    display: none;
+}
+
+/* DESKTOP */
+@media only screen and (min-width: 1200px) {
+  .occurrence {
+    margin-bottom: -90px;
+  }
+
+  .occurrence h2,
+  .occurrence .descr {
+    position: absolute;
+  }
+
+  .occurrence .images {
+    margin: 0;
+  }
+
+  .occurrence .descr {
+    max-width: var(--descr-max-width);
+  }
+
+  /* START alternate 2n offset */
+  :root {
+    --occurrence-2n-space: 40px;
+    --occurrence-2n-margin: calc(var(--occurrence-margin) + var(--occurrence-width) + var(--occurrence-2n-space));
+    --descr-2n-offset: calc(-1 * (var(--occurrence-2n-margin) - var(--descr-margin)));
+    --descr-2n-max-width: calc(var(--occurrence-2n-margin) - (2 * var(--descr-margin)));
+  }
+  .occurrence:nth-child(2n) {
+    margin-left: var(--occurrence-2n-margin);
+  }
+
+  .occurrence:nth-child(2n)::before {
+    left: calc(-1 * var(--occurrence-2n-margin));
+    width: var(--occurrence-2n-margin);
+  }
+  .occurrence:nth-child(2n)::after {
+    left: calc(-1 * var(--occurrence-2n-margin) - var(--occurrence-dot));
+    border: var(--occurrence-dot) solid white;
+    border-radius: 50%;
+  }
+  .occurrence:nth-child(2n) h2 {
+    left: var(--descr-2n-offset);
+  }
+  .occurrence:nth-child(2n) .descr {
+    left: var(--descr-2n-offset);
+    max-width: var(--descr-2n-max-width);
+  }
+  /* END alternate 2n offset */
+}
+
+.occurrence img {
+  max-width: 100%;
+  border-radius: 16px;
+}
+
+.lightbox {
+  display: none;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  max-width: calc(100vw - var(--lightbox-padding) - var(--lightbox-padding));
+  max-height: calc(100vh - var(--lightbox-padding) - var(--lightbox-padding));
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: var(--lightbox-padding);
+}
+
+.lightbox.open {
+  display: block;
+}
+
+.lightbox .container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-height: inherit;
+  max-width: inherit;
+  height: 100%;
+  width: 100%;
+}
+
+.lightbox .container img {
+  max-height: inherit;
+  max-width: inherit;
+  border: 1px solid #ccc;
+}
