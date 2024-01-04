@@ -103,8 +103,10 @@ function linkGallery(occurrence) {
     event.preventDefault();
 
     const galleryWrapper = document.querySelector('.gallery-wrapper');
-    galleryWrapper.querySelector('.gallery').innerHTML = `
-      ${createImagesArr(occurrence).reduce((acc, value) =>
+    const gallery = galleryWrapper.querySelector('.gallery');
+    const imagesArr = createImagesArr(occurrence);
+    gallery.innerHTML = `
+      ${imagesArr.reduce((acc, value) =>
         acc + `<a class="image" href="${value.src}"><img src="${value.thumb}" alt="${value.alt}"></a>`
       , '')}
     `;
@@ -112,6 +114,12 @@ function linkGallery(occurrence) {
     document.body.classList.add(BODY_HIDE_SCROLL_CLASS);
     // The browsers remembers the scroll position of the last gallery. Make it start from the top.
     galleryWrapper.scrollTop = 0
+
+    /*
+     * Compensate for margin of gallery + a little extra (kinda crappy fix).
+     * Works perfectly on mobile but on desktop there are not as many rows as being multiplied so it's too much.
+     */
+    gallery.style.paddingBottom = (imagesArr.length*5) + 30 + "px";
 
     /*
      * waterfall only works when all the images have loaded and have known sizes.
