@@ -6,24 +6,39 @@
   --occurrence-line-offset: 150px;
   --occurrence-dot: 8px;
   --occurrence-width: auto;
-  --occurrence-margin: 30px;
+  --occurrence-margin-left: 30px;
+  --occurrence-margin-bottom: 0;
   --occurrence-padding: 30px;
   --descr-margin: 15px;
-  --descr-offset: calc(-1 * (var(--occurrence-margin) - var(--descr-margin)));
-  --descr-max-width: calc(var(--occurrence-margin) - (2 * var(--descr-margin)));
+  --descr-offset: calc(-1 * (var(--occurrence-margin-left) - var(--descr-margin)));
+  --descr-max-width: calc(var(--occurrence-margin-left) - (2 * var(--descr-margin)));
+}
+
+@media only screen and (min-width: 600px) {
+  :root {
+    --occurrence-width: 500px;
+  }
+}
+
+@media only screen and (min-width: 860px) {
+  :root {
+    --occurrence-margin-left: 300px;
+    --occurrence-line-offset: 50%;
+  }
 }
 
 @media only screen and (min-width: 1200px) {
   :root {
-    --header-margin: 320px;
-    --timeline-margin: 300px;
-    --occurrence-line-offset: 50%;
-    --occurrence-top: 50%;
-    --occurrence-width: 500px;
-    --occurrence-margin: 300px;
+    --header-margin: calc(15% + 20px);
+    --timeline-margin: 15%;
   }
 }
 
+@media only screen and (min-width: 1600px) {
+  :root {
+    --occurrence-margin-bottom: -90px;
+  }
+}
 
 body {
   position: relative;
@@ -31,6 +46,14 @@ body {
   margin: 0;
   padding: 0;
   color: white;
+}
+
+/*
+ * Note that simplelightbox uses the class hidden-scroll to do the same thing.
+ * hide-scroll is for the gallery so as not to conflict
+ */
+body.hide-scroll {
+  overflow: hidden;
 }
 
 header {
@@ -60,15 +83,22 @@ header nav .month {
   font-size: 1.5em;
 }
 
+footer {
+  height: calc(-1 * var(--occurrence-margin-bottom) + 50px);
+  margin: 0 var(--timeline-margin);
+  border-left: white 2px solid;
+}
+
 .timeline {
   margin: 0 var(--timeline-margin);
   border-left: white 2px solid;
 }
 .occurrence {
   position: relative;
-  margin-left: var(--occurrence-margin);
+  margin-left: var(--occurrence-margin-left);
   padding-top: var(--occurrence-padding);
   width: var(--occurrence-width);
+  margin-bottom: var(--occurrence-margin-bottom);
 }
 
 .occurrence::before,
@@ -79,14 +109,14 @@ header nav .month {
 
 .occurrence::before {
   top: var(--occurrence-line-offset);
-  left: calc(-1 * var(--occurrence-margin));
+  left: calc(-1 * var(--occurrence-margin-left));
   height: 1px;
-  width: var(--occurrence-margin);
+  width: var(--occurrence-margin-left);
   border-bottom: white 1px dashed;
 }
 .occurrence::after {
   top: calc(var(--occurrence-line-offset) - var(--occurrence-dot) + 1px);
-  left: calc(-1 * var(--occurrence-margin) - var(--occurrence-dot));
+  left: calc(-1 * var(--occurrence-margin-left) - var(--occurrence-dot));
   border: var(--occurrence-dot) solid white;
   border-radius: 50%;
 }
@@ -104,36 +134,101 @@ header nav .month {
   color: var(--color-sub-text);
 }
 .occurrence .images {
+  position: relative;
   margin: 10px 0;
 }
 
-.occurrence .images .image:not(:first-child) {
-    display: none;
+.occurrence .images .multi {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  width: 50px;
+  pointer-events: none;
+}
+.occurrence .images .multi-shadow {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  box-shadow: 0 0 18px rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.4);
+  pointer-events: none;
 }
 
-/* DESKTOP */
-@media only screen and (min-width: 1200px) {
-  .occurrence {
-    margin-bottom: -90px;
-  }
+.occurrence .images .image img {
+  max-width: 100%;
+  border-radius: 16px;
+}
 
+.gallery-wrapper {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100vh;
+  overflow: auto;
+  padding: 20px;
+  padding-right: 76px;
+  background: #000;
+}
+.gallery-wrapper.shown {
+  display: block;
+}
+.gallery-wrapper .close {
+  position: fixed;
+  right: 20px;
+  top: 20px;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  padding: 0;
+  height: 44px;
+  width: 44px;
+  border: 0 none;
+  background: rgba(0,0,0,0);
+  color: #fff;
+  font-size: 3rem;
+  font-family: Arial,Baskerville,monospace;
+}
+.gallery-wrapper .gallery {
+  height: 100%;
+}
+.gallery-wrapper .gallery .image {
+  display: flex;
+  width: 450px;
+  margin: 5px;
+}
+.gallery-wrapper .gallery .image img {
+  max-width: 100%;
+}
+
+@media only screen and (min-width: 860px) {
   .occurrence h2,
   .occurrence .descr {
     position: absolute;
   }
 
-  .occurrence .images {
-    margin: 0;
-  }
-
   .occurrence .descr {
     max-width: var(--descr-max-width);
+  }
+}
+
+/* DESKTOP */
+@media only screen and (min-width: 1600px) {
+  .occurrence .images {
+    margin: 0;
   }
 
   /* START alternate 2n offset */
   :root {
     --occurrence-2n-space: 40px;
-    --occurrence-2n-margin: calc(var(--occurrence-margin) + var(--occurrence-width) + var(--occurrence-2n-space));
+    --occurrence-2n-margin: calc(var(--occurrence-margin-left) + var(--occurrence-width) + var(--occurrence-2n-space));
     --descr-2n-offset: calc(-1 * (var(--occurrence-2n-margin) - var(--descr-margin)));
     --descr-2n-max-width: calc(var(--occurrence-2n-margin) - (2 * var(--descr-margin)));
   }
@@ -158,41 +253,4 @@ header nav .month {
     max-width: var(--descr-2n-max-width);
   }
   /* END alternate 2n offset */
-}
-
-.occurrence img {
-  max-width: 100%;
-  border-radius: 16px;
-}
-
-.lightbox {
-  display: none;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  max-width: calc(100vw - var(--lightbox-padding) - var(--lightbox-padding));
-  max-height: calc(100vh - var(--lightbox-padding) - var(--lightbox-padding));
-  background-color: rgba(0, 0, 0, 0.8);
-  padding: var(--lightbox-padding);
-}
-
-.lightbox.open {
-  display: block;
-}
-
-.lightbox .container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  max-height: inherit;
-  max-width: inherit;
-  height: 100%;
-  width: 100%;
-}
-
-.lightbox .container img {
-  max-height: inherit;
-  max-width: inherit;
-  border: 1px solid #ccc;
 }

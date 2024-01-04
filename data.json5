@@ -1,5 +1,6 @@
 {
   occurrences: [
+    /* Range of pictures */
     {
       date: {
         year: 2023,
@@ -11,70 +12,68 @@
         Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.\
       ",
       location: "",
-      images: [
-        {
-          src: "./images/trees.jpg",
-          alt: "A bunch of trees"
-        },
-        {
-          src: "./images/cat.jpg",
-          alt: "Some cat"
-        },
-        {
-          src: "./images/red.jpg",
-          alt: "A red thing"
-        }
-      ]
+      imagesRange: {
+        baseName: '',
+        ext: 'jpg',
+        srcFolder: "./images/Portrait",
+        thumbFolder: "./images/Portrait/thumb",
+        start: 1,
+        end: 10
+      }
     },
+    /* Range of pictures */
     {
       date: {
         year: 2023,
         month: 5,
         day: 11
       },
-      description: "A cat was found",
+      description: "Lots of flowers",
       location: "",
-      images: [
-        {
-          src: "./images/cat.jpg",
-          alt: "Some cat"
-        },
-        {
-          src: "./images/trees.jpg",
-          alt: "A bunch of trees"
-        },
-        {
-          src: "./images/red.jpg",
-          alt: "A red thing"
-        }
-      ]
+      imagesRange: {
+        baseName: '',
+        ext: 'jpg',
+        srcFolder: "./images/Square1",
+        thumbFolder: "./images/Square1/thumb",
+        start: 1,
+        end: 10
+      },
     },
+    /* Manual list of pictures */
     {
       date: {
         year: 2022,
         month: 12,
         day: 5
       },
-      description: "Some red thing",
+      description: "A few things",
       location: "",
       images: [
         {
-          src: "./images/red.jpg",
+          thumb: "./images/misc/thumb/red.jpg",
+          src: "./images/misc/red.jpg",
           alt: "A red thing"
+        },
+        {
+          thumb: "./images/misc/thumb/water.jpg",
+          src: "./images/misc/water.jpg",
+          alt: "Underwater"
         }
       ]
     },
+    /* A single picture */
     {
       date: {
         year: 2022,
         month: 6,
         day: 19
       },
-      description: "Underwater things",
+      description: "A cat was found",
       location: "",
       images: [
         {
-          src: "./images/water.jpg",
+          thumb: "./images/misc/thumb/cat.jpg",
+          src: "./images/misc/cat.jpg",
           alt: "Underwater"
         }
       ]
