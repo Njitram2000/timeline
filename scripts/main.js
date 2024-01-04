@@ -51,7 +51,7 @@ async function initOccurrences() {
     const html = `
       <h2 class="date">${printDate(occurrence.date)}</h2>
       <div class="images">
-      <a class="image" href="${imagesArr[0].src}"><img loading="lazy" src="${imagesArr[0].thumb}" alt="${imagesArr[0].alt}"></a>
+      <a class="image" href="${imagesArr[0].src}"><img src="${imagesArr[0].thumb}" alt="${imagesArr[0].alt}"></a>
       ${imagesArr.length > 1 ? '<div class="multi-shadow"></div><img class="multi" src="./multi-icon.svg">'  : ''}
       </div>
       <div class="descr">${occurrence.description}</div>
@@ -109,11 +109,25 @@ function linkGallery(occurrence) {
       , '')}
     `;
     galleryWrapper.classList.add(GALLERY_SHOWN_CLASS);
-    waterfall(document.querySelector('.gallery'));
     document.body.classList.add(BODY_HIDE_SCROLL_CLASS);
     // The browsers remembers the scroll position of the last gallery. Make it start from the top.
     galleryWrapper.scrollTop = 0
 
+    /*
+     * waterfall only works when all the images have loaded and have known sizes.
+     * Not waiting for them to all load leads to them being stacked with absolute positioning because <img> has a height of 0 initially
+     */
+    const allImages = document.querySelectorAll('.gallery img');
+    let imagesLoaded = 0;
+    allImages.forEach(img => img.addEventListener('load', () => {
+      imagesLoaded++;
+      if(imagesLoaded == allImages.length) {
+        console.log('all loaded');
+        waterfall(document.querySelector('.gallery'));
+      }
+    }));
+
+    // A new lightbox per generated gallery. Does not open a lightbox but maps it to the click event on the images
     new SimpleLightbox(`.gallery .image`, {overlayOpacity: 1})
   });
 }
